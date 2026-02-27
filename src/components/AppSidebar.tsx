@@ -1,4 +1,4 @@
-import { LayoutDashboard, Receipt, DollarSign, TrendingUp, Brain, LogOut, Sparkles } from "lucide-react";
+import { LayoutDashboard, Receipt, DollarSign, TrendingUp, Brain, LogOut, Zap } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
@@ -30,14 +30,14 @@ export function AppSidebar() {
   const { signOut, user } = useAuth();
 
   return (
-    <Sidebar collapsible="icon" className="border-r border-border/50">
+    <Sidebar collapsible="icon" className="border-r border-border/30">
       <div className="p-4 flex items-center gap-2">
         <div className="h-9 w-9 rounded-xl bg-primary flex items-center justify-center shrink-0">
-          <Sparkles className="h-5 w-5 text-primary-foreground" />
+          <Zap className="h-5 w-5 text-primary-foreground" />
         </div>
         {!collapsed && (
           <span className="text-lg font-bold font-sans tracking-tight">
-            Lotus<span className="gradient-text">FIN</span>
+            Shizen<span className="gradient-text">Flow</span>
           </span>
         )}
       </div>
