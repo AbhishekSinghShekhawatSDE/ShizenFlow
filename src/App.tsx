@@ -10,6 +10,10 @@ import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import Expenses from "./pages/Expenses";
+import Income from "./pages/Income";
+import Investments from "./pages/Investments";
+import AIInsights from "./pages/AIInsights";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +37,10 @@ const App = () => (
               }
             >
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/expenses" element={<Expenses />} />
+              <Route path="/income" element={<Income />} />
+              <Route path="/investments" element={<Investments />} />
+              <Route path="/ai-insights" element={<AIInsights />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
