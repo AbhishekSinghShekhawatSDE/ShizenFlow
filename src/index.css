@@ -134,6 +134,62 @@
     background: hsl(var(--primary));
     animation: pulse-dot 2s ease-in-out infinite;
   }
+
+  .grid-pattern {
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.15) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.15) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .feature-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.3), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .feature-card:hover::before {
+    opacity: 1;
+  }
+
+  .nav-logo-pulse {
+    animation: logo-pulse 3s ease-in-out infinite;
+  }
+
+  .shimmer-text {
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  .chip-float {
+    animation: chip-bob 4s ease-in-out infinite;
+  }
+
+  .bar-grow {
+    animation: bar-enter 1s ease-out both;
+  }
+
+  .score-pulse {
+    animation: score-beat 2s ease-in-out infinite;
+  }
+
+  .step-badge {
+    animation: badge-pop 0.5s ease-out both;
+  }
+
+  .orb-drift {
+    animation: orb-float 12s ease-in-out infinite;
+  }
+
+  .orb-drift-reverse {
+    animation: orb-float-reverse 10s ease-in-out infinite;
+  }
 }
 
 @layer utilities {
@@ -190,4 +246,41 @@
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.5; transform: scale(1.5); }
+}
+
+@keyframes logo-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 hsl(160 60% 45% / 0.3); }
+  50% { box-shadow: 0 0 16px 4px hsl(160 60% 45% / 0.15); }
+}
+
+@keyframes shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes chip-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes bar-enter {
+  from { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+  to { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+}
+
+@keyframes score-beat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+@keyframes orb-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.1); }
+  66% { transform: translate(-20px, 15px) scale(0.95); }
+}
+
+@keyframes orb-float-reverse {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-25px, 20px) scale(1.05); }
+  66% { transform: translate(15px, -25px) scale(0.9); }
 }
