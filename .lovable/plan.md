@@ -1,22 +1,27 @@
 
 
-## Issue Analysis
+## Root Causes
 
-**Problem 1: Login fails after signup** - Auth logs show `"Email not confirmed"` error. Users sign up, get redirected to login, but cannot sign in because email verification is pending. The confirmation email hook runs successfully but the user has no way to confirm in time.
+**Email login fails**: Expected behavior. New users haven't confirmed their email yet. You want to keep verification, so the fix is better error messaging telling users to check their inbox.
 
-**Problem 2: Google OAuth** - The code looks correct (uses `lovable.auth.signInWithOAuth`). The auth logs show the existing user (abhisheksinghshekhawat63@gmail.com) successfully using Google OAuth. This likely works. If it fails for the user, it may be a redirect URL issue.
+**Google OAuth "does nothing"**: The OAuth popup flow actually completes and sets the session, BUT neither Login.tsx nor Register.tsx listen for session changes or redirect authenticated users. After Google OAuth sets the session via `supabase.auth.setSession()`, the user just stays on `/login` or `/register` with no navigation.
 
-## Fix Plan
+## Fixes
 
-### 1. Enable auto-confirm email signups
-Use the configure-auth tool to enable auto-confirm so new users can log in immediately after registration. This is the root cause of the login failure.
+### 1. Add authenticated-user redirect to Login.tsx and Register.tsx
+Import `useAuth` hook. If `session` exists, redirect to `/dashboard`. This handles:
+- Post-Google-OAuth redirect (session gets set in background, component re-renders, detects session, navigates)
+- Users who are already logged in visiting `/login` or `/register`
 
-### 2. Improve Register.tsx post-signup flow
-After successful signup with auto-confirm enabled, navigate directly to `/dashboard` instead of `/login` with a "check your email" message (since there's no email to check anymore).
+### 2. Improve login error message for unconfirmed email
+In `handleLogin`, check if `error.message` contains "Email not confirmed". Show a specific toast: "Please verify your email first. Check your inbox for the confirmation link."
 
-### 3. Improve Login error handling
-Update the login error handler to show a more helpful message when the error is "Email not confirmed", telling the user to check their email inbox.
+### 3. Add navigation after successful Google OAuth
+Update the Google OAuth button click handlers in both Login.tsx and Register.tsx to explicitly navigate to `/dashboard` after a successful sign-in (as a fallback alongside the session-based redirect).
 
-### 4. Fix console warnings
-- Wrap `AnimatedCounter` and `MagneticButton` components in `React.forwardRef()` to fix the ref warnings in Landing.tsx.
+---
+
+**Files to modify:**
+- `src/pages/Login.tsx` — add `useAuth` + redirect when session exists, improve error message
+- `src/pages/Register.tsx` — add `useAuth` + redirect when session exists
 
