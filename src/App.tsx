@@ -18,6 +18,7 @@ import Income from "./pages/Income";
 import Investments from "./pages/Investments";
 import AIInsights from "./pages/AIInsights";
 import NotFound from "./pages/NotFound";
+import ProjectData from "./pages/ProjectData";
 
 const queryClient = new QueryClient();
 
