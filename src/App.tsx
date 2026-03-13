@@ -49,6 +49,7 @@ const App = () => (
               <Route path="/investments" element={<Investments />} />
               <Route path="/ai-insights" element={<AIInsights />} />
             </Route>
+            <Route path="/project-data" element={<ProjectData />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
