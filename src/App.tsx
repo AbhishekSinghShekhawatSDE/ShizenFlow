@@ -18,6 +18,7 @@ import Income from "./pages/Income";
 import Investments from "./pages/Investments";
 import AIInsights from "./pages/AIInsights";
 import NotFound from "./pages/NotFound";
+import ProjectData from "./pages/ProjectData";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +49,7 @@ const App = () => (
               <Route path="/investments" element={<Investments />} />
               <Route path="/ai-insights" element={<AIInsights />} />
             </Route>
+            <Route path="/project-data" element={<ProjectData />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
